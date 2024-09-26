@@ -1,9 +1,13 @@
-podTemplate(containers: [containerTemplate(name: 'maven', image: 'maven', command: 'sleep', args: 'infinity')]) {
-  node(POD_LABEL) {
-    checkout scm
-    container('maven') {
-      sh 'mvn -B -ntp -Dmaven.test.failure.ignore verify'
+pipeline
+{
+    agent any
+    stages
+    {
+        stage('test')
+        {
+            steps{withMaven(globalMavenSettingsConfig: '', jdk: 'JDK_home', maven: 'Maven_home', mavenSettingsConfig: '', traceability: true)} {
+                sh 'mvn clean test'
+}
+        }
     }
-    junit '**/target/surefire-reports/TEST-*.xml'
-  }
 }
