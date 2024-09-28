@@ -3,16 +3,16 @@ pipeline
     agent any
     stages
     {
-        stage('test')
-        {
-            steps{withMaven(globalMavenSettingsConfig: '', jdk: 'JDK_home', maven: 'Maven_home', mavenSettingsConfig: '', traceability: true)} {
-                sh 'mvn test'
-                }
-        }
+        // stage('test')
+        // {
+        //     steps{withMaven(globalMavenSettingsConfig: '', jdk: 'JDK_home', maven: 'Maven_home', mavenSettingsConfig: '', traceability: true)} {
+        //         sh 'mvn test'
+        //         }
+        // }
         stage('package')
         {
             steps{withMaven(globalMavenSettingsConfig: '', jdk: 'JDK_home', maven: 'Maven_home', mavenSettingsConfig: '', traceability: true)} {
-                sh 'mvn clean -B -DskipTests package'
+                sh 'mvn clean package'
             }
         }
         stage('Deploy')
