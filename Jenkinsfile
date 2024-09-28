@@ -7,7 +7,13 @@ pipeline
         {
             steps{withMaven(globalMavenSettingsConfig: '', jdk: 'JDK_home', maven: 'Maven_home', mavenSettingsConfig: '', traceability: true)} {
                 sh 'mvn clean test'
-}
+                }
+        }
+        stage('package')
+        {
+            steps{withMaven(globalMavenSettingsConfig: '', jdk: 'JDK_home', maven: 'Maven_home', mavenSettingsConfig: '', traceability: true)} {
+                sh 'mvn clean -B -DskipTests package'
+            }
         }
         stage('Deploy')
         {
